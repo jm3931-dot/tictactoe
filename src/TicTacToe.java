@@ -1,26 +1,23 @@
 import java.util.Random;
 import java.util.Scanner;
-
 public class TicTacToe {
     static char[][] board=new char[3][3];
     static char player1Symbol,player2Symbol,currentPlayerSymbol;
     static int currentPlayer;
-
     public static void main(String[] args){
         initializeBoard();
         printBoard();
         tossAndAssignSymbols();
         System.out.println("Player "+currentPlayer+" starts with "+currentPlayerSymbol);
         int slot=getUserSlotInput();
-        System.out.println("Slot entered: "+slot);
+        int[] pos=convertSlotToIndex(slot);
+        System.out.println("Row: "+pos[0]+" Col: "+pos[1]);
     }
-
     static void initializeBoard(){
         for(int row=0;row<3;row++)
             for(int col=0;col<3;col++)
                 board[row][col]='-';
     }
-
     static void printBoard(){
         System.out.println("------");
         for(int row=0;row<3;row++){
@@ -30,7 +27,6 @@ public class TicTacToe {
             System.out.println("------");
         }
     }
-
     static void tossAndAssignSymbols(){
         int toss=new Random().nextInt(2);
         if(toss==0){
@@ -39,10 +35,13 @@ public class TicTacToe {
             currentPlayer=2; player2Symbol='X'; player1Symbol='O'; currentPlayerSymbol=player2Symbol;
         }
     }
-
     static int getUserSlotInput(){
         Scanner sc=new Scanner(System.in);
         System.out.print("Enter slot (1-9): ");
         return sc.nextInt();
+    }
+    static int[] convertSlotToIndex(int slot){
+        int index=slot-1;
+        return new int[]{index/3,index%3};
     }
 }
