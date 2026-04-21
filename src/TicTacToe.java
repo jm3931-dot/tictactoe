@@ -11,7 +11,8 @@ public class TicTacToe {
         System.out.println("Player "+currentPlayer+" starts with "+currentPlayerSymbol);
         int slot=getUserSlotInput();
         int[] pos=convertSlotToIndex(slot);
-        System.out.println("Row: "+pos[0]+" Col: "+pos[1]);
+        if(isValidMove(pos[0],pos[1])) System.out.println("Valid move");
+        else System.out.println("Invalid move");
     }
     static void initializeBoard(){
         for(int row=0;row<3;row++)
@@ -43,5 +44,9 @@ public class TicTacToe {
     static int[] convertSlotToIndex(int slot){
         int index=slot-1;
         return new int[]{index/3,index%3};
+    }
+    static boolean isValidMove(int row,int col){
+        if(row<0||row>2||col<0||col>2) return false;
+        return board[row][col]=='-';
     }
 }
